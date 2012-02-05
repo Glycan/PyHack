@@ -145,6 +145,7 @@ class TerminalController:
         if s == '$$': return s
         else: return getattr(self, s[2:-1])
 
+
 #######################################################################
 # Example use case: progress bar
 #######################################################################
