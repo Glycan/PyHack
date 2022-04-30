@@ -1,6 +1,9 @@
 from tc import TerminalController as TermCtrl
+import tty
 import sys
 
+
+tty.setcbreak(sys.stdin.fileno()) # cbreak mode, no buffer
 term = TermCtrl()
 
 acts = ("h", "l")
@@ -12,13 +15,13 @@ sys.stdout.flush()
 
 while 1:
     char = sys.stdin.read(1)
-    o = term.LEFT
+    o = ""
     if char in acts:
         if char == "h":
-            o += term.LEFT + "@."
+            o += term.LEFT + "@." + term.LEFT
         else:
             o += ".@"
     else:
         o += "@"
-    sys.stdout.write(o)
+    sys.stdout.write(o + term.LEFT)
     sys.stdout.flush()
