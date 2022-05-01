@@ -6,7 +6,7 @@ import sys
 tty.setcbreak(sys.stdin.fileno()) # cbreak mode, no buffer
 term = TermCtrl()
 
-acts = ("h", "l")
+acts = ("h", "l", "j", "k")
 feild = "Use the l and h @rrow keys to move"
 #i = 16
 
@@ -19,6 +19,10 @@ while 1:
     if char in acts:
         if char == "h":
             o += term.LEFT + "@." + term.LEFT
+        elif char == "k":
+            o += "." + term.LEFT + term.UP + "@"
+        elif char == "j":
+            o += "." + term.DOWN + "@"
         else:
             o += ".@"
     else:
