@@ -17,13 +17,13 @@ def blit(board, cursor):
     inv = ", ".join(
         "%s: %s" % (names.get(k, k), 10 - v if k == "l" else v)
         for k, v in inventory.items()
-        if v > 2 and k.isalpha()
+        if v > 1 and k.isalpha()
     )
     sys.stdout.write(
         term.CLEAR_SCREEN
         + "\n".join("".join(row) for row in board)
         + (("\n" + inv + term.UP) if inv else "")
-        + term.UP * (len(board) - cursor[1])
+        + term.UP * (len(board) - cursor[1] - 1)
         + term.BOL
         + term.RIGHT * (cursor[0])
     )
@@ -58,7 +58,7 @@ board = [
     [highlight(char) for char in text[i * cols : i * cols + cols]] for i in range(rows)
 ]
 
-for i in range(20):
+for i in range(40):
     placed = (randint(0, cols - 1), randint(0, rows - 1))
     board = set_cursor(board, placed, highlight(choice("lp")))
 
@@ -94,6 +94,7 @@ while 1:
         if 0 <= new_x < cols and 0 <= new_y < rows:
             cursor = (new_x, new_y)
     new_char = get_cursor(board, cursor).lower()
+    print(new_char)
     inventory[new_char] += 1
     # # move the letter to the next position in the path
     # set_cursor(board, moves[char](*cursor), new_char)
